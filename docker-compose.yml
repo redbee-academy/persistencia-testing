@@ -1,0 +1,21 @@
+version: "3.5"
+
+services:
+  postgres:
+    container_name: testing_postgres
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_PASSWORD: academy
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker:/docker-entrypoint-initdb.d
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+        reservations:
+          memory: 512M
+      mode: replicated
+      replicas: 1
